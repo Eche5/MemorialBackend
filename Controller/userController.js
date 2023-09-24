@@ -5,7 +5,11 @@ exports.createTribute = async (req, res) => {
     const { name, tribute } = req.body;
     const previous = await User.findOne({ tribute });
     if (!previous) {
-      const newtribute = await User.create(req.body);
+      const newtribute = await User.create({
+        name: req.body.name,
+        tribute: req.body.tribute,
+        relationship: req.body.relationship,
+      });
       res.status(200).json({
         status: "success",
         message: `${name}, thank you for posting your tribute`,

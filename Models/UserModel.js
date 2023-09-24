@@ -7,6 +7,9 @@ const userSchema = mongoose.Schema({
     minlength: 2,
     maxlength: 50,
   },
+  relationship: {
+    type: String,
+  },
   tribute: {
     type: String,
     required: [true, "please write a tribute"],
