@@ -3,13 +3,16 @@ const User = require("../Models/UserModel");
 exports.createTribute = async (req, res) => {
   try {
     const { name, tribute } = req.body;
+
     const previous = await User.findOne({ tribute });
+
     if (!previous) {
       const newtribute = await User.create({
         name: req.body.name,
         tribute: req.body.tribute,
         relationship: req.body.relationship,
       });
+
       res.status(200).json({
         status: "success",
         message: `${name}, thank you for posting your tribute`,
@@ -31,6 +34,7 @@ exports.createTribute = async (req, res) => {
 exports.getAllTributes = async (req, res) => {
   try {
     const tributes = await User.find();
+
     res.status(200).json({
       status: "success",
       data: tributes,
@@ -42,11 +46,13 @@ exports.getAllTributes = async (req, res) => {
     });
   }
 };
+
 exports.getOneTribute = async (req, res) => {
   try {
     const id = req.params.id;
+
     const tributes = await User.findOne({ _id: id });
-    console.log(tributes);
+
     res.status(200).json({
       tributes,
     });
@@ -57,13 +63,19 @@ exports.getOneTribute = async (req, res) => {
     });
   }
 };
+
 exports.editTributes = async (req, res) => {
   try {
-    const tribute = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-    if (!tribute) {
+    const updatetribute = await User.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!updatetribute) {
       res.status(400).json({
         status: "failed",
         message: `No tribute found with ID: ${req.params.id}`,
@@ -73,7 +85,7 @@ exports.editTributes = async (req, res) => {
     res.status(200).json({
       message: "tribute updated",
       data: {
-        data: tribute,
+        data: updatetribute,
       },
     });
   } catch (error) {
@@ -86,6 +98,7 @@ exports.editTributes = async (req, res) => {
 
 exports.deleteTribute = async (req, res) => {
   const deleteTribute = await User.findByIdAndDelete(req.body.id);
+
   if (deleteTribute) {
     res.status(204).json({
       status: "success",

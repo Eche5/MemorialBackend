@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
     type: String,
     required: [true, "please provide your username"],
     minlength: 2,
-    maxlength: 50,
+    maxlength: 100,
   },
   relationship: {
     type: String,

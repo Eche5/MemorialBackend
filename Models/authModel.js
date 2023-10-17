@@ -30,16 +30,23 @@ const authSchema = mongoose.Schema({
 
 authSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
+
   this.password = await bcrypt.hash(this.password, 12);
+
+  //prevents the confirmed Password from being in the database
   this.confirmPassword = undefined;
+
   next();
 });
+
 authSchema.methods.correctPassword = async function (
   candidatePassword,
+
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
+
 const Auth = mongoose.model("Auth", authSchema);
 
 module.exports = Auth;
