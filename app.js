@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
-
+const photoRoute = require("./Routes/photosRoute");
 const tributerouter = require("./Routes/userRoutes");
 
 const app = express();
@@ -20,7 +20,7 @@ app.set("trust proxy", "loopback");
 app.use(cors());
 
 app.use(express.json());
-
+app.use("/", photoRoute);
 app.use("/api/v1/users", tributerouter);
 
 module.exports = app;
