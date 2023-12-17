@@ -17,8 +17,8 @@ const userSchema = mongoose.Schema({
     maxlength: 40000,
   },
   date: {
-    type: String,
-  },
+ type: Date,
+    default: Date.now(),  },
 });
 
 const User = mongoose.model("User", userSchema);
