@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema({
     maxlength: 40000,
   },
   date: {
-    type: Date,
+    type: String,
   },
 });
 
